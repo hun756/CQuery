@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Editor
+.vscode/
+.idea/
+.vs
+
+# Shell scripts
+*.sh
+*.bat
