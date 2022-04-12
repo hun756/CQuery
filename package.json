@@ -1,0 +1,23 @@
+{
+  "name": "cquery",
+  "version": "0.0.1",
+  "description": "The jQuery library c++ has been rewritten using cheerp.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hun756/CQuery.git"
+  },
+  "author": "hun756 <ekemenms@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hun756/CQuery/issues"
+  },
+  "homepage": "https://github.com/hun756/CQuery#readme"
+}
