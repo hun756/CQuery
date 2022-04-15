@@ -93,6 +93,50 @@ public:
     {
         throw NotImplementedException("Function is not Implementd");
     }
+
+    /**
+     * @brief 
+     *  Return a number representing the current time.
+     * 
+     * @return double 
+     */
+    [[deprecated]]
+    double now()
+    {
+        return client::Date::now();
+    }
+
+    /**
+     * @brief 
+     *  Merge the contents of two arrays together into the first array.
+     *
+     * @param first 
+     *  The first array to merge, the elements of second added.
+     * @param second 
+     *  The second array to merge into the first, unaltered.
+     * @see {@link https://api.jquery.com/jQuery.merge/}
+     */
+    client::Array* merge(const client::Array* first, const client::Array* second)
+    {
+        auto result = new client::Array();
+        result = first->concat(second);
+
+        return result;
+    }
+
+    /**
+     * @bug
+     *  TArray::concat() is not working correctly..!
+     * @todo Fix it.!
+     */
+    template<typename T>
+    client::TArray<T>* merge(const client::TArray<T>* first, const client::TArray<T>* second)
+    {   
+        auto result = new client::TArray<T>();
+        result = first->concat(second);
+
+        return result;
+    }
 };
 
 /*
