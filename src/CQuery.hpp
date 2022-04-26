@@ -168,39 +168,18 @@ public:
     */
    CQuery& on(const client::String& events, client::EventListener* handler)
    {
-        auto _var = this->_h_client_String_to_constChar(events);
-        if(strcmp(_var, "click") == 0) {
-            client::console.log("DEBUG burada");
-            elem->addEventListener("click", handler);
-            return *this; 
-        } else if(strcmp(_var, "mouseover") == 0) {
-            elem->addEventListener("mouseover", handler);
-            return *this;
-        }
-
-        // auto __var = this->getEventTypeFromClientString(events);
-
-        // switch(__var) {
-        //     case EventType::Click : {
-        //         elem->addEventListener("click", handler);
-        //         return *this; 
-        //     } break;
-
-        //     case EventType::MouseOver : {
-        //         elem->addEventListener("mouseover", handler);
-        //         return *this;
-        //     } break;
-
-        //     case EventType::Unkown : {
-        //         client::console.log("Detected unkown event");
-        //     } break;
-        // }
-
-        // return *this;
+        elem->addEventListener(events, handler);
+        return *this;
    }
 
 private:
-
+    /**
+     * @brief 
+     *  Get the Event Type From Client String object
+     * 
+     * @warning 
+     *  unused.
+     */
     EventType getEventTypeFromClientString(const client::String& str) {
         std::unordered_map<const char*, EventType> _map {
             {"abort", EventType::Abort},
@@ -208,6 +187,8 @@ private:
             {"mouseover", EventType::MouseOver},
             {"mousemove", EventType::MouseMove},
             {"mouseenter", EventType::MouseEnter},
+
+            // ...
         };
 
         auto _var = this->_h_client_String_to_constChar(str);
