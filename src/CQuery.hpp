@@ -3,13 +3,15 @@
 
 #include <cheerp/clientlib.h>
 #include <cheerp/jsobject.h>
+#include <cheerp/types.h>
 #include "definitions.hpp"
 #include "excepts/NotImplemented.hpp"
+#include <unordered_map>
 
 /* Previous declaration for CQuery CALLBACK Object */
 class CQueryCallback;
 
-/* Previous declaration for CQuery Object */
+/* Previous declaration for CQ      uery Object */
 class CQUERY_API CQuery
 {
     friend class CQueryStatic;
@@ -96,7 +98,7 @@ public:
     CQuery& css(std::initializer_list<client::Object*> property)
     {
         // operations
-        throw NotImplementedException("Function is not Implemented");
+        // throw NotImplementedException("Function is not Implemented");
         return *this;
     }
 
@@ -127,7 +129,98 @@ public:
         return *this;
     }
 
-private:    
+    private:
+
+        enum class EventType {
+            Abort,
+            Click,
+            MouseMove,
+            MouseOver,
+            MouseEnter,
+            Unkown
+        };
+
+    public:
+
+    /**
+     * @brief 
+     *  Attach an event handler function for one or more events to the
+     *  selected elements.
+     *
+     * @param events 
+     *  One or more space-separated event types and optional namespaces, 
+     *  such as "click" or "keydown.myPlugin".
+     * @param data 
+     *  Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered. The value
+     * false is also allowed as a shorthand for a function that simply does return false.
+     * 
+     * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
+     * 
+     * @todo
+     *  events must be of type "JQueryEventObject". However, since this class is not implemented,
+     *  the eventlistener in the client library will be used.
+     * 
+     * @warning
+     * @todo
+     *  The unordered map code grows to 2000 lines. After looking at the performance measurement, 
+     *  let's decide whether to use unordered_map or inline as in the example.
+    */
+   CQuery& on(const client::String& events, client::EventListener* handler)
+   {
+        auto _var = this->_h_client_String_to_constChar(events);
+        if(strcmp(_var, "click") == 0) {
+            client::console.log("DEBUG burada");
+            elem->addEventListener("click", handler);
+            return *this; 
+        } else if(strcmp(_var, "mouseover") == 0) {
+            elem->addEventListener("mouseover", handler);
+            return *this;
+        }
+
+        // auto __var = this->getEventTypeFromClientString(events);
+
+        // switch(__var) {
+        //     case EventType::Click : {
+        //         elem->addEventListener("click", handler);
+        //         return *this; 
+        //     } break;
+
+        //     case EventType::MouseOver : {
+        //         elem->addEventListener("mouseover", handler);
+        //         return *this;
+        //     } break;
+
+        //     case EventType::Unkown : {
+        //         client::console.log("Detected unkown event");
+        //     } break;
+        // }
+
+        // return *this;
+   }
+
+private:
+
+    EventType getEventTypeFromClientString(const client::String& str) {
+        std::unordered_map<const char*, EventType> _map {
+            {"abort", EventType::Abort},
+            {"click", EventType::Click},
+            {"mouseover", EventType::MouseOver},
+            {"mousemove", EventType::MouseMove},
+            {"mouseenter", EventType::MouseEnter},
+        };
+
+        auto _var = this->_h_client_String_to_constChar(str);
+        // auto iter = _map.find(_var);
+
+        for (const auto& x : _map) {
+            if(strcmp(_var, x.first) == 0) {
+                return x.second;
+            }
+        }            
+
+        return EventType::Unkown;
+    }
 
     [[cheerp::genericjs]] void set_elem(const client::String &str)
     {
@@ -138,6 +231,24 @@ private:
         //     _curSelectorStr = nullptr;
         // }
         _curSelectorStr = new client::String(str);
+    }
+
+    /**
+     * @brief 
+     *  This helper method converts client::String to const char*
+     * @param str 
+     * 
+     * @return const char* 
+     */
+    [[cheerp::genericjs]] const char* _h_client_String_to_constChar(const client::String& str) {
+        auto _len = str.get_length();
+        const auto _ch = new char[_len + 1];
+
+		for(size_t i = 0; i < _len; ++i)
+			_ch[i] = str.charCodeAt(i);
+
+        _ch[_len] = '\0';
+        return _ch;
     }
 
 private:

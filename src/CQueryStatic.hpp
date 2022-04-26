@@ -32,7 +32,9 @@ public:
      */
     CQuery &__unnamed_helper_fn(client::String &selector, union __u_cq_context *cqContext)
     {
-        throw NotImplementedException("Function is not Implementd");
+        // throw NotImplementedException("Function is not Implementd");
+        auto _val = new CQuery();
+        return *_val;
     }
 
 #if !JS_EXPORT_ENABLED
@@ -51,7 +53,9 @@ public:
      */
     CQuery &operator()(client::String &selector, union __u_cq_context *cqContext)
     {
-        throw NotImplementedException("Function is not Implementd");
+        // throw NotImplementedException("Function is not Implementd");
+        auto _val = new CQuery();
+        return *_val;
     }
 
     /**
@@ -91,7 +95,8 @@ public:
      */
     void holdReady(bool hold)
     {
-        throw NotImplementedException("Function is not Implementd");
+        // throw NotImplementedException("Function is not Implementd");
+        
     }
 
     /**
