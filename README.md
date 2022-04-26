@@ -38,7 +38,8 @@ void webMain() {
 ```
 
 Output : 
-![alt](https://link)
+
+![ouput01image](docs/img_resources/out01.png);
 
 #### Performance ?
 Let's look at a performance comparison for the .css method.
