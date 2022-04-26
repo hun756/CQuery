@@ -134,13 +134,37 @@ public:
      *  TArray::concat() is not working correctly..!
      * @todo Fix it.!
      */
-    template<typename T>
+    template<typename T = client::Object>
     client::TArray<T>* merge(const client::TArray<T>* first, const client::TArray<T>* second)
     {   
         auto result = new client::TArray<T>();
         result = first->concat(second);
 
         return result;
+    }
+
+    /**
+     * @brief 
+     *  Search for a specified value within an array and return its index (or -1 if not found).
+     *
+     * @param value 
+     *  The value to search for.
+     * 
+     * @param array 
+     *  An array through which to search.
+     * 
+     * @param fromIndex 
+     *  The index of the array at which to begin the search. The default is 0, which will search the whole array.
+     * @see {@link https://api.jquery.com/jQuery.inArray/}
+     */
+    template<typename T>
+    unsigned inArray(T* item, const client::TArray<T>& arr) {
+        // return arr.client::Array::indexOf(item);
+        return arr.clientindexOf(item);
+    }
+
+    unsigned inArray(client::Object* item, const client::Array& arr) {
+        return arr.indexOf(item);
     }
 };
 

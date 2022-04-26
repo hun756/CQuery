@@ -172,6 +172,27 @@ public:
         return *this;
    }
 
+   /**
+    * @brief 
+     * Remove an event handler.
+     *
+     * @param events 
+     *  One or more space-separated event types and optional namespaces, 
+     *  or just namespaces, such as "click", "keydown.myPlugin", or ".myPlugin".
+     * 
+     * @param handler 
+     *  A handler function previously attached for the event(s), or the 
+     *  special value false.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/off/#off-events-selector-handler}
+     */
+    CQuery& off(const client::String& events, client::EventListener* handler)
+    {
+        elem->removeEventListener(events, handler);
+        return *this;
+    }
+
 private:
     /**
      * @brief 
