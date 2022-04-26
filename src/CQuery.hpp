@@ -103,7 +103,11 @@ public:
     CQuery& css(std::initializer_list<std::pair<client::String*, client::String*>> property)
     {
         // operations
-        throw NotImplementedException("Function is not Implemented");
+        for (auto it = property.begin(); it != property.end(); ++it)  {
+            this->css(it->first, it->second);
+        } 
+
+        // throw NotImplementedException("Function is not Implemented");
         return *this;
     }
 
