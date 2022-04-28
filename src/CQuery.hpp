@@ -65,6 +65,15 @@ public:
      *  get stylesheetlist and if it exist remove `create sheet` method
      *  and get currently use stylesheet
      * 
+     * @note
+     *  Jquery using elementinline css type
+     * @example 
+     * @code
+     *  auto _stylesheet = 
+     *      static_cast<client::ElementCSSInlineStyle*>(client::document.getElementById("app"))->get_style();
+     *  stylesheet->set_backgroundColor("red");
+     * {@link https://leaningtech.com/API/classclient_1_1_element_c_s_s_inline_style.html}
+     * 
      * @link
      *  https://leaningtech.com/API/classclient_1_1_style_sheet_list.html
      */
@@ -126,6 +135,27 @@ public:
     CQuery& parent() 
     {
         this->elem = elem->get_parentElement();
+        return *this;
+    }
+
+    /**
+     * @brief 
+     *  Hide the matched elements.
+     * 
+     * @param duration 
+     *  A string or number determining how long the animation will run.
+     * 
+     * @param complete 
+     *  A function to call once the animation is complete.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/hide/#hide}
+     * @todo
+     *  Apply animation
+     */
+    CQuery& hide(/*client::String& duration , client::EventListener* complete = nullptr */)
+    {
+        this->css("display", "none");
         return *this;
     }
 
@@ -254,6 +284,11 @@ private:
     }
 
 private:
+    /**
+     * @brief 
+     *  Cquery is supporting one element now.
+     *  This union structure will be used when element lists support.
+     */
     /* 
     union _elem_Reserved {
         client::Element *elem;
