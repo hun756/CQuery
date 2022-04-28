@@ -18,31 +18,44 @@ class CQUERY_API CQuery
 
 public:
     static constexpr char *version = "0.0.1";
+    /**
+     * @brief Construct a new CQuery object
+     * 
+     */
     CQuery() noexcept
     {
     }
 
-    CQuery &click()
+    /**
+     * @brief 
+     *  Bind an event handler to the "click" JavaScript event
+     *
+     * @param handler 
+     *  A function to execute each time the event is triggered.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/click/#click-handler}
+     */
+    CQuery &click(client::EventListener *handler)
     {
-        elem->addEventListener(
-            "click", 
-            cheerp::Callback([] { 
-                client::console.log("Clicked"); 
-            })
-        );
-
+        elem->addEventListener("click", handler);
         return *this;
     }
 
-    CQuery &click(client::EventListener *callback)
-    {
-        elem->addEventListener("click", callback);
-        return *this;
-    }
 
-    CQuery &ready(client::EventListener *callback)
+    /**
+     * @brief 
+     *  Specify a function to execute when the DOM is fully loaded.
+     *
+     * @param handler 
+     *  A function to execute after the DOM is ready.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/ready/}
+     */
+    CQuery &ready(client::EventListener *handler)
     {
-        client::document.addEventListener("DOMContentLoaded", callback);
+        client::document.addEventListener("DOMContentLoaded", handler);
         return *this;
     }
 
@@ -204,6 +217,25 @@ public:
 
    /**
     * @brief 
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     *
+     * @param eventType 
+     *  A string containing a JavaScript event type, such as click or submit.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/trigger/#trigger-eventType-extraParameters}
+     */
+    CQuery& trigger(const client::String& eventType)
+    {
+        auto event = client::document.createEvent("HTMLEvents");
+        event->initEvent("change", true, false);
+        elem->dispatchEvent(event);
+
+        return *this;
+    }
+
+   /**
+    * @brief 
      * Remove an event handler.
      *
      * @param events 
@@ -221,6 +253,148 @@ public:
     {
         elem->removeEventListener(events, handler);
         return *this;
+    }
+
+    /**
+     * @brief 
+     * Create a deep copy of the set of matched elements.
+     * 
+     * @param withDataAndEvents 
+     *  A Boolean indicating whether event handlers and data should be copied along 
+     *  with the elements. The default value is false.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/clone/}
+     */
+    CQuery& clone(bool withDataAndEvents) 
+    {
+        elem->cloneNode(true);
+        return *this;
+    }
+
+    /**
+     * @brief 
+     *  Check the current matched set of elements against a selector, element, or jQuery object 
+     *  and return true if at least one of these elements matches the given arguments.
+     *
+     * @param selector 
+     *  A string containing a selector expression to match elements against.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/is/#is-selector}
+     * 
+     * @warning
+     *  It maybe fail when using
+     *   - el.matchesSelector 
+     *   - el.mozMatchesSelector 
+     *   - el.webkitMatchesSelector
+     *   - el.oMatchesSelector
+     */
+    bool is(const client::String& selector)
+    {
+        return elem->matches(selector) || elem->msMatchesSelector(selector);
+    }
+
+    /**
+     * @brief 
+     *  Determine whether any of the matched elements are assigned the given class.
+     *
+     * @param className 
+     *  The class name to search for.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/hasClass/}
+     */
+    bool hasClass(client::String className)
+    {
+        return elem->get_classList()->contains(className);
+    }
+
+    /**
+     * @brief 
+     *  Get the HTML contents of the first element in the set of matched elements.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/html/#html}
+     */
+    client::String* html() 
+    {
+        return elem->get_innerHTML(); 	
+    }
+
+    /**
+     * @brief 
+     *  Set the HTML contents of each element in the set of matched elements.
+     *
+     * @param htmlString 
+     *  A string of HTML to set as the content of each matched element.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/html/#html-htmlString}
+     */
+    CQuery& html(const client::String& html) 
+    {
+        elem->set_innerHTML(html);
+        return * this;
+    }
+
+    /**
+     * @brief 
+     *  Get the combined text contents of each element in the set of matched elements,
+     *  including their descendants.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/text/#text}
+     */
+    client::String* text() 
+    {
+        return elem->get_innerHTML(); 	
+    }
+
+    /**
+     * @brief 
+     * Set the content of each element in the set of matched elements to the specified text.
+     * 
+     * @param text 
+     *  The text to set as the content of each matched element. When Number or Boolean is supplied, 
+     *  it will be converted to a String representation.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/text/#text-text}
+     */
+    CQuery& text(const client::String& html) 
+    {
+        elem->set_textContent(html);
+        return *this;
+    }
+
+    /**
+     * @brief 
+     *  Get the current computed width for the first element in the set of matched elements.
+     * 
+     * @see     
+     *  {@link https://api.jquery.com/width/#width}
+     */
+    double width()
+    {
+        return client::parseFloat(client::getComputedStyle(elem)->get_width()->replace("px", ""));
+    }
+
+    /**
+     * @brief 
+     *  Search for a given element from among the matched elements.
+     * 
+     * @see 
+     *  {@link https://api.jquery.com/index/#index}
+     */
+    int index() 
+    {
+        if(!elem) return -1;
+
+        int i {0};
+        while(elem = elem->get_previousElementSibling()) ++i;
+
+        return i;
     }
 
 private:
