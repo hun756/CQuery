@@ -372,11 +372,7 @@ enum class CSSStyleHelper
     Zoom
 };
 
-/**
- * @todo
- *  TODO: Fix object for parameters....!
- */
-[[ noreturn ]] void addCssStyle(client::ElementCSSInlineStyle* element, CSSStyleHelper cssEnumValue, const client::String& value)
+constexpr void addCssStyle(client::ElementCSSInlineStyle* element, CSSStyleHelper cssEnumValue, const client::String& value)
 {
     using namespace client;
     switch (cssEnumValue)
@@ -699,7 +695,7 @@ enum class CSSStyleHelper
         case CSSStyleHelper::WebkitColumnBreakInside:           { element->get_style()->set_webkitColumnBreakInside(value);             }   break;
         case CSSStyleHelper::WebkitColumnCount:                 { element->get_style()->set_webkitColumnCount(new String(value));       }   break;
         case CSSStyleHelper::WebkitColumnGap:                   { element->get_style()->set_webkitColumnGap(new String(value));         }   break;
-        case CSSStyleHelper::WebkitColumnRule:                  { element->get_style()->set_webkitColumnRule(new String(value));        }   break;
+        case CSSStyleHelper::WebkitColumnRule:                  { element->get_style()->set_webkitColumnRule(value);                    }   break;
         case CSSStyleHelper::WebkitColumnRuleColor:             { element->get_style()->set_webkitColumnRuleColor(new String(value));   }   break;
         case CSSStyleHelper::WebkitColumnRuleStyle:             { element->get_style()->set_webkitColumnRuleStyle(value);               }   break;
         case CSSStyleHelper::WebkitColumnRuleWidth:             { element->get_style()->set_webkitColumnRuleWidth(new String(value));   }   break;
