@@ -186,7 +186,9 @@ let hexArr = [
 function generateRandomColorString() {
     let str = "#";
     for (let i = 0; i < 6; i++) {
-        str = str.concat(String.fromCharCode(hexArr[~~(+Math.random() * 16)]));
+        str = str.concat(String.fromCharCode(
+        	hexArr[Math.floor(+Math.random() * 16)].charCodeAt()
+        ));
     }
 
     return str;
@@ -208,11 +210,10 @@ console.log("Ellapsed time is", time2 - time1);
 
 | Browser/Plaform | c++/cquery | js/jquery |
 | --------------- | ---------- | --------- |
-| Firefox         | ~110       | ~330ms     |
-| Chrome          | ~115       | ~480ms     |
+| Firefox         | ~110ms     | ~310ms    |
+| Chrome          | ~115ms     | ~380ms    |
 
-
-According to result Cquery is 3-4x faster than Jquery for css operation.
+According to result Cquery is 3x faster than Jquery for css operation.
 
 [See Jquery version on Jsfiddle](https://jsfiddle.net/hun756/vg9xb5e7/3/)
 
