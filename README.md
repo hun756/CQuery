@@ -47,10 +47,6 @@ Output :
 
 <br>
 
-### What is the difference ?
-Cheerp is a compiler, Jquery is a library which which written in javascript. 
-    Cquery compiled in Cherpd and generated native javascript output:
-
 <br>
 But, It's a better idea to choose this.
 <br>
