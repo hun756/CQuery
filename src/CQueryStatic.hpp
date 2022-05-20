@@ -1,5 +1,5 @@
-#ifndef CQUERY_STATIC_HPP
-#define CQUERY_STATIC_HPP
+#ifndef CQUERY_STATIC_HPP_mnt68y
+#define CQUERY_STATIC_HPP_mnt68y
 
 #include "definitions.hpp"
 #include <cheerp/clientlib.h>
@@ -175,4 +175,4 @@ public:
     extern CQueryStatic $;
 #endif
 
-#endif /* end of include guard : CQUERY_STATIC_HPP */
+#endif /* end of include guard : CQUERY_STATIC_HPP_mnt68y */

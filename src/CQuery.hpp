@@ -1,5 +1,5 @@
-#ifndef CQUERY_BASE_CLASS
-#define CQUERY_BASE_CLASS
+#ifndef CQUERY_BASE_CLASS_t7mjam
+#define CQUERY_BASE_CLASS_t7mjam
 
 #include <cheerp/clientlib.h>
 #include <cheerp/jsobject.h>
@@ -474,4 +474,4 @@ private:
     client::String* _curSelectorStr {nullptr};
 };
 
-#endif /* end of include guard : CQUERY_BASE_CLASS */
+#endif /* end of include guard : CQUERY_BASE_CLASS_t7mjam */
