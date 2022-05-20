@@ -6,6 +6,7 @@
 #include <cheerp/types.h>
 #include "definitions.hpp"
 #include "excepts/NotImplemented.hpp"
+#include "CssStyleHelper.hpp"
 #include <unordered_map>
 
 /* Previous declaration for CQuery CALLBACK Object */
@@ -117,9 +118,33 @@ public:
         return *this;
     }
 
+    CQuery& css(CSSStyleHelper enumValue, const client::String& str)
+    {
+        addCssStyle(
+            static_cast<client::ElementCSSInlineStyle*>(
+                static_cast<client::HTMLElement*>(elem)
+            ),
+            enumValue,
+            str
+        );
+
+        return *this;
+    }
+
     CQuery& css(std::initializer_list<client::Object*> property)
     {
         // operations
+        // throw NotImplementedException("Function is not Implemented");
+        return *this;
+    }
+
+    CQuery& css(std::initializer_list<std::pair<const client::String&, const client::String&>> property)
+    {
+        // operations
+        for (auto it = property.begin(); it != property.end(); ++it)  {
+            this->css(it->first, it->second);
+        } 
+
         // throw NotImplementedException("Function is not Implemented");
         return *this;
     }
