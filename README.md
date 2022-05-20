@@ -137,43 +137,87 @@ Let's look at a performance comparison for the .css method.
 
 C++ version:
 ```cpp
-auto val = 1000;
+const char hexArr[] = {
+    '0', '1', '2', '3',
+    '4', '5', '6', '7',
+    '8', '9', 'A', 'B',
+    'C', 'D', 'E', 'F'
+};
+
+client::String* generateRandomColorString() {
+    auto str = new client::String("#");
+    for (int i = 0; i < 6; i++) {
+        str = str->concat(
+            client::String::fromCharCode(
+                hexArr[(int)client::Math.floor(client::Math.random() * 16)]
+            )
+        );
+    }
+
+    return str;
+}
+
+void webMain()
+{
+    auto val = 100000;
 
     auto time1 = client::Date::now();
     for (size_t i = 0; i < val; ++i)
     {
         $("body")
-            .css("background-color", "blue")
-            .css("width", "500px");
-    }   
+            .css(CSSStyleHelper::BackgroundColor, generateRandomColorString());
+    }
     auto time2 = client::Date::now();
 
     client::console.log("Ellapsed time is", time2 - time1);
+}
 ```
 
 Javascript/Jquery version :
 ```js
 
-var iteration_size = 1000;
+let hexArr = [
+    '0', '1', '2', '3',
+    '4', '5', '6', '7',
+    '8', '9', 'A', 'B',
+    'C', 'D', 'E', 'F'
+];
 
-var time1 = +Date.now();
-for(var i = 0; i < iteration_size; ++i) {
-	$("body")
-        .css("background-color", "blue")
-        .css("width", "500px");
+function generateRandomColorString() {
+    let str = "#";
+    for (let i = 0; i < 6; i++) {
+        str = str.concat(String.fromCharCode(hexArr[~~(+Math.random() * 16)]));
+    }
+
+    return str;
 }
-var time2 = +Date.now();
 
-console.log("ellapsed time is : ", time2 - time1);
+const val = 100000;
+
+let time1 = +Date.now();
+for (let i = 0; i < val; ++i)
+{
+  $("body")
+    .css("background-color", generateRandomColorString());
+}
+let time2 = +Date.now();
+
+console.log("Ellapsed time is", time2 - time1);
+
 ```
 
 | Browser/Plaform | c++/cquery | js/jquery |
 | --------------- | ---------- | --------- |
-| Firefox         | ~4ms       | ~11ms     |
-| Chrome          | ~6ms       | ~12ms     |
+| Firefox         | ~110       | ~330ms     |
+| Chrome          | ~115       | ~480ms     |
 
 
-Note: After 1500 the javascript engines can also cut the repeating loops. For higher iterations you can assign values  with math.random.
+According to result Cquery is 3-4x faster than Jquery for css operation.
+
+[See Jquery version on Jsfiddle](https://jsfiddle.net/hun756/vg9xb5e7/3/)
+
+[See on C++/Cheerp Version](https://github.com/hun756/CQuery/blob/main/output/browser_generic_js/cq11_css_perform.js)
+
 
 ### Supported Methods
 
