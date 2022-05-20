@@ -41,14 +41,15 @@ void webMain() {
 
 <br>
 
-### What is the difference ?
-Cheerp is a compiler, Jquery is a library which which written in javascript. 
-    Cquery compiled in Cherpd and generated native javascript output:
-
 Output : 
 
 ![ouput01image](docs/img_resources/out01.png);
 
+<br>
+
+### What is the difference ?
+Cheerp is a compiler, Jquery is a library which which written in javascript. 
+    Cquery compiled in Cherpd and generated native javascript output:
 
 <br>
 But, It's a better idea to choose this.
@@ -65,7 +66,7 @@ $("#test")
 
 ### What is the difference ?
 Cheerp is a compiler, Jquery is a library which which written in javascript. 
-    Cquery compiled in Cheerp and generated native javascript output:
+    Cquery compiled in Cherpd and generated native javascript output:
 
 <br>
 
