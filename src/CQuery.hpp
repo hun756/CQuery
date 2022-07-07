@@ -12,7 +12,7 @@
 /* Previous declaration for CQuery CALLBACK Object */
 class CQueryCallback;
 
-/* Previous declaration for CQ      uery Object */
+/* Previous declaration for CQuery Object */
 class CQUERY_API CQuery
 {
     friend class CQueryStatic;

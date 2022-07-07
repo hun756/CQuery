@@ -61,8 +61,8 @@ $("#test")
 <br>
 
 ### What is the difference ?
-Cheerp is a compiler, Jquery is a library which which written in javascript. 
-    Cquery compiled in Cherpd and generated native javascript output:
+Cheerp is a compiler, Jquery is a library which written in javascript. 
+Cquery compiled in Cheerp and generated native javascript output:
 
 <br>
 
@@ -213,9 +213,9 @@ console.log("Ellapsed time is", time2 - time1);
 | Firefox         | ~110ms     | ~310ms    |
 | Chrome          | ~115ms     | ~380ms    |
 
-According to result Cquery is 3x faster than Jquery for css operation.
+As a result Cquery is 3x faster than Jquery for css operation.
 
-[See Jquery version on Jsfiddle](https://jsfiddle.net/hun756/vg9xb5e7/3/)
+[See Jquery version on Jsfiddle](https://jsfiddle.net/hun756/3f8mevLd/)
 
 [See on C++/Cheerp Version](https://github.com/hun756/CQuery/blob/main/output/browser_generic_js/cq11_css_perform.js)
 
