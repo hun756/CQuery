@@ -104,17 +104,14 @@ public:
             auto _getSh =  createdCssElem->get_sheet();
             auto styleSheet =  static_cast<client::CSSStyleSheet*>(_getSh);
             styleSheet->insertRule(ruleValStr);
-
-            // client::console.info("DEBUG : Created Style Element");
         } 
         else 
         {
             auto _getSh =  sslist->item(0);
             auto styleSheet =  static_cast<client::CSSStyleSheet*>(_getSh);
             styleSheet->insertRule(ruleValStr);
-
-            // client::console.info("DEBUG : It has style element skipped");
         }
+
         return *this;
     }
 
@@ -196,20 +193,7 @@ public:
         this->css("display", "none");
         return *this;
     }
-
-    private:
-
-        enum class EventType {
-            Abort,
-            Click,
-            MouseMove,
-            MouseOver,
-            MouseEnter,
-            Unkown
-        };
-
-    public:
-
+    
     /**
      * @brief 
      *  Attach an event handler function for one or more events to the
@@ -423,37 +407,7 @@ public:
     }
 
 private:
-    /**
-     * @brief 
-     *  Get the Event Type From Client String object
-     * 
-     * @warning 
-     *  unused.
-     */
-    EventType getEventTypeFromClientString(const client::String& str) {
-        std::unordered_map<const char*, EventType> _map {
-            {"abort", EventType::Abort},
-            {"click", EventType::Click},
-            {"mouseover", EventType::MouseOver},
-            {"mousemove", EventType::MouseMove},
-            {"mouseenter", EventType::MouseEnter},
-
-            // ...
-        };
-
-        auto _var = this->_h_client_String_to_constChar(str);
-        // auto iter = _map.find(_var);
-
-        for (const auto& x : _map) {
-            if(strcmp(_var, x.first) == 0) {
-                return x.second;
-            }
-        }            
-
-        return EventType::Unkown;
-    }
-
-    [[cheerp::genericjs]] void set_elem(const client::String &str)
+    void set_elem(const client::String &str)
     {
         elem = client::document.querySelector(str);
         // auto_maged w Javascript Garbage Collector for exporting JS
@@ -462,24 +416,6 @@ private:
         //     _curSelectorStr = nullptr;
         // }
         _curSelectorStr = new client::String(str);
-    }
-
-    /**
-     * @brief 
-     *  This helper method converts client::String to const char*
-     * @param str 
-     * 
-     * @return const char* 
-     */
-    [[cheerp::genericjs]] const char* _h_client_String_to_constChar(const client::String& str) {
-        auto _len = str.get_length();
-        const auto _ch = new char[_len + 1];
-
-		for(size_t i = 0; i < _len; ++i)
-			_ch[i] = str.charCodeAt(i);
-
-        _ch[_len] = '\0';
-        return _ch;
     }
 
 private:
