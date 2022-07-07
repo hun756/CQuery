@@ -373,7 +373,7 @@ public:
      */
     client::String* text() 
     {
-        return elem->get_innerHTML(); 	
+        return elem->get_textContent(); 	
     }
 
     /**
